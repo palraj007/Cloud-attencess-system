@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Login</title>
+    <link rel="stylesheet" href="land.css">
+    <style>
+      .logout:hover{
+        color: black;
+        background-color: brown;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <a href="home1.html" class="logo">KGiSL INSTITUTE OF TECHNOLOGY</a>
+        <ul class="nav-links">
+
+       
+          <li><a href="teacher_page.html" class="cta-button">attendence</a></li>
+          <li><a href="Reg.html" class="cta-button">add user</a></li>
+          <li><a href="viewattendence.html" class="cta-button">view attendence details</a></li>
+        
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" id="logout" class="logout" style="display: none;">Log Out</a></li>
+            <!-- Add more right-aligned items as needed -->
+          </ul>
+        </ul>
+      </div>
+  
+      </div>
+    </div>
+  </nav>
+  
+  <div style="display: flex; justify-content: center;">
+    <form name="attendance_form" id="attendance_form" method="post" action="#" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-sm-13">
+          <div class="form-group">
+            <label for="student_name">Name</label>
+            <select name="student_name" id="student_name" class="form-control">
+              <option value="kavinraj_r">Kavinraj R</option>
+              <option value="palraj_r">Palraj R</option>
+              <option value="srikanth_kc">Srikanth KC</option>
+              <option value="santhosh g">Santhosh G</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="roll_number">Roll Number</label>
+            <input type="text" name="roll_number" id="roll_number" class="form-control" placeholder="Enter roll number">
+          </div>
+          <div class="form-group">
+            <label for="attendance_status">Attendance Status</label>
+            <select name="attendance_status" id="attendance_status" class="form-control">
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+            </select>
+          </div>
+          <button type="button" id="submit_attendance" name="submit_attendance" class="btn btn-success">Submit Attendance</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+    
+    <br>
+  
+
+    <section id="signup" class="signup">
+      <div class="container">
+        <h2>Join KGISL Today!</h2>
+        <p>Start your learning journey with KGISL..!</p>
+        <a href="Reg.html" class="cta-button">New User?</a>
+        
+      </div>
+    </section>
+   <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+      import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBB483O9lv9X6cfZiJi6u87076nV2K6HIg",
+        authDomain: "online-cloud-attendence-system.firebaseapp.com",
+        databaseURL: "https://online-cloud-attendence-system-default-rtdb.firebaseio.com",
+        projectId: "online-cloud-attendence-system",
+        storageBucket: "online-cloud-attendence-system.appspot.com",
+        messagingSenderId: "167309625562",
+        appId: "1:167309625562:web:165eb52c5e5290d7233de3",
+        measurementId: "G-ZJLMV9KRM8"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+
+      // Handle form submission
+      document.getElementById("submit_attendance").addEventListener("click", function () {
+        const studentName = document.getElementById("student_name").value;
+        const rollNumber = document.getElementById("roll_number").value;
+        const attendanceStatus = document.getElementById("attendance_status").value;
+
+        // Reference to the 'ATTENDANCE' node
+        const attendanceRef = ref(database, "ATTENDANCE");
+
+        // Push attendance data as an object
+        push(attendanceRef, {
+          studentName: studentName,
+          rollNumber: rollNumber,
+          attendanceStatus: attendanceStatus,
+        });
+
+        });
+
+    </script>
+  </body>
+</html>
